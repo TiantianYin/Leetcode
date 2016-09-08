@@ -1,0 +1,15 @@
+//80. Remove Duplicates from Sorted Array II
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        if (nums.size()<3) return nums.size();
+        int length=0;
+        for (int i=1;i<(nums.size()-1);i++){
+            if (nums[i]!=nums[i-1] || nums[i]!=nums[i+1]){
+                nums[++length]=nums[i];
+            }
+        }
+        nums[++length]=nums[nums.size()-1];
+        return length+1;
+    }
+};
