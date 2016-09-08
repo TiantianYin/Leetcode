@@ -1,0 +1,27 @@
+//1. Two Sum
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        vector<int> result,dupre;
+        unordered_map<int,int> used;
+        unordered_map<int,int> index;
+        int numsLen=nums.size();
+        int dup=0;
+        for(int i=0; i<numsLen;i++) {
+            if(target==(2*nums[i])){dup++;dupre.push_back(i);}
+            if(dup==2) return dupre;
+        }
+        for(int i=0; i<numsLen;i++) {
+            used[nums[i]]= true; index[nums[i]]=i;
+        }
+        for(int i=0; i<numsLen;i++) {
+            if(target==(2*nums[i])) continue;
+            if(used[target-nums[i]]==true){
+                result.push_back(index[nums[i]]);
+                result.push_back(index[target-nums[i]]);
+                return result;
+            }
+        }
+        return result;
+    }
+};
