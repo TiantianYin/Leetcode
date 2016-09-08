@@ -1,0 +1,22 @@
+//11. Container With Most Wate
+class Solution {
+public:
+    int maxArea(vector<int>& height) {
+        int max=0;
+        int hsize=height.size();
+        int search=((hsize+1)/2);
+        int fmax=0,lmax=0;
+        for(int i=0;i<search;i++){
+            if(height[i]<fmax) continue;
+            fmax=height[i];
+            for(int j=(hsize-1);j>=search;j--){
+                if(height[j]<lmax) continue;
+                lmax=height[j];
+                int h=height[i]<height[j] ? height[i]:height[j];
+                max=(h*(j-i))>max?(h*(j-i)):max;
+                if(height[j]>=height[i])break;
+            }
+        }
+        return max;
+    }
+};
