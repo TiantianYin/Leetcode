@@ -1,0 +1,31 @@
+//16. 3Sum Closest
+class Solution {
+public:
+    int choose(int tar,int precl,int newcl){
+        if(abs(tar-precl)<=abs(tar-newcl)) return precl;
+        else return newcl;
+    }
+    int threeSumClosest(vector<int>& nums, int target) {
+        sort(nums.begin(),nums.end());
+        int closest=(nums[0]+nums[1]+nums[2]);
+        int nsize=nums.size();
+        for(int i=0;i<(nsize-2);i++){
+            if(i>0 && nums[i-1]==nums[i]) continue;
+            int j=i+1,k=nsize-1;
+            while(j!=k){
+                if ( (nums[i]+nums[j]+nums[k])>target || (k<(nsize-1) && nums[k]==nums[k+1]) ) {
+                    closest=choose(target,closest,(nums[i]+nums[j]+nums[k]));
+                    k--;continue;
+                    
+                }
+                else if ( (nums[i]+nums[j]+nums[k])<target || (j>(i+1) && nums[j]==nums[j-1]) ) {
+                    closest=choose(target,closest,(nums[i]+nums[j]+nums[k]));
+                    j++;continue;
+                    
+                }
+                else return target;
+            }
+        }
+        return closest;
+    }
+};16. 3Sum Closest
