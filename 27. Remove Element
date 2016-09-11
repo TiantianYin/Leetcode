@@ -1,0 +1,11 @@
+//27. Remove Element
+class Solution {
+public:
+    int removeElement(vector<int>& nums, int val) {
+        int index=0,nsize=nums.size();
+        for(int i=0; i<nsize; i++){
+            if(nums[i]!=val) nums[index++]=nums[i];
+        }
+        return index;
+    }
+};
