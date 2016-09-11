@@ -1,0 +1,19 @@
+2. Add Two Numbers
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        int judge=0;
+        ListNode head(0);
+        ListNode* l3;
+        l3=&head;
+        while(judge || l1 || l2){
+            judge+=(l1?l1->val:0)+(l2?l2->val:0);
+            l3->next=new ListNode(judge%10);
+            judge=judge/10;
+            l3=l3->next;
+            if(l1) l1=l1->next;
+            if(l2) l2=l2->next;
+        }
+        return head.next;
+    }
+};
