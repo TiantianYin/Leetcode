@@ -1,0 +1,41 @@
+//34. Search for a Range
+class Solution {
+public:
+    vector<int> searchRange(vector<int>& nums, int target) {
+        vector<int> result,badre;
+        badre.push_back(-1);badre.push_back(-1);
+        result.push_back(-1);result.push_back(-1);
+        int pref=0,prel=nums.size()-1;
+        bool opf= false, opl= false;
+        if(nums.size()==1){
+            if(nums[0]==target) {result[0]=0;result[1]=0;return result;}
+            else return badre;
+        }
+        int first=0, last=nums.size()-1, mid=(first+last)/2;
+        while(last>=first){
+            if(nums[mid]<target){
+                first=mid+1;
+                mid=(first+last)/2;
+            }
+            else if(nums[mid]>target){
+                last=mid-1;
+                mid=(first+last)/2;
+            }
+            else{
+                if(nums[first]<target) {pref=first;first=(first+mid+1)/2;}
+                else{
+                    if(first==0 || nums[first-1]<target) {opf=true; result[0]=first;}
+                    else first=(first+pref)/2;
+                }
+                if(nums[last]>target) {prel=last;last=(last+mid-1)/2;}
+                else{
+                    if(last==nums.size()-1 || nums[last+1]>target) {opl=true; result[1]=last;}
+                    else last=(last+prel)/2;
+                }
+            }
+            if(opf && opl) break;
+        }
+        if(opf && opl && result[1]>=result[0]) return result;
+        else return badre;
+    }
+};
