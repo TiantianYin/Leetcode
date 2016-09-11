@@ -1,0 +1,24 @@
+//31. Next Permutation
+class Solution {
+public:
+    void exchange(int &a, int &b){int op=a;a=b;b=op;}
+    void reverse(int &i, int &j, vector<int> &nums){while(j>i){exchange(nums[i],nums[j]);i++;j--;}}
+    void nextPermutation(vector<int>& nums) {
+        int nsize=nums.size(),a=nsize;
+        for (int i=nsize-1;i>0;i--){
+            if(nums[i]>nums[i-1]) {a=i; break;}
+        }
+        int i=0,j=nsize-1;
+        if(a==nsize){
+            reverse(i, j, nums);
+        }
+        else{
+            i=a;j=nsize-1;
+            reverse(i, j, nums);
+            for(int i=0;i<nsize;i++)cout<<nums[i]<<endl;
+            i=a-1;j=a;
+            while(nums[j]<=nums[i]) j++;
+            exchange(nums[j],nums[i]);
+        }
+    }
+};
