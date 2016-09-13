@@ -1,0 +1,20 @@
+//6. ZigZag Conversion
+class Solution {
+public:
+    string convert(string s, int numRows) {
+        int ssize=s.size();
+        if(numRows==1 || ssize<=2)return s;
+        string result;
+        vector<int> nums;
+        for(int i=0;(2*numRows-2)*(i-1)<ssize;i++){nums.push_back((2*numRows-2)*i);nums.push_back((2*numRows-2)*i);}
+        nums[0]=-1;
+        int loop=0,nsize=nums.size();
+        for(int i=1;i<nsize;i++){if(nums[i]>nums[i-1] && nums[i]<ssize) result+=s[nums[i]];}
+        while(true){
+            for(int i=0;i<nsize/2;i++){nums[2*i]--;nums[2*i+1]++;}
+            for(int i=1;i<nsize;i++){if(nums[i]>nums[i-1] && nums[i]<ssize) result+=s[nums[i]];}
+            if(nums[2]<=nums[1]) break;
+        }
+        return result;
+    }
+};
