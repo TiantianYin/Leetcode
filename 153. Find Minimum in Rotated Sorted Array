@@ -1,0 +1,30 @@
+//153. Find Minimum in Rotated Sorted Array
+class Solution {
+public:
+    int findMin(vector<int>& nums) {
+        int snum=nums.size();
+        if(snum == 1) return nums[0];
+        int first = 0, last = snum, mid = (first + last-1) / 2, pre_first = 0;
+        while(first != last){
+            if(mid == first){
+                if(nums[mid] < nums[mid+1]) return nums[mid];
+                else return nums[mid+1];
+            }
+            if(nums[mid] > nums[first]){
+                if(nums[first] > nums[last - 1]){
+                    pre_first = first;
+                    first = mid + 1;
+                    mid = (first + last - 1) / 2;
+                }
+                else{
+                    return nums[first];
+                }
+            }
+            else {
+                last = mid + 1;
+                mid = (last + first - 1)/2;
+            }
+        }
+        return nums[first];
+    }
+};
