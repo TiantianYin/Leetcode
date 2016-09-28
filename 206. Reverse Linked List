@@ -1,0 +1,15 @@
+//206. Reverse Linked List
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        ListNode *result = NULL, *tmp = NULL;
+        while(head != NULL){
+            tmp = new ListNode(head->val);
+            tmp->next = result;
+            head = head->next;
+            result = tmp;
+        }
+        
+        return result;
+    }
+};
