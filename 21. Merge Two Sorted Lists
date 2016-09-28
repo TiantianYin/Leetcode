@@ -1,0 +1,29 @@
+//21. Merge Two Sorted Lists
+class Solution {
+public:
+    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
+        if(l1 == NULL) return l2;
+        if(l2 == NULL) return l1;
+        if(l1->val > l2->val){
+            ListNode *tmp;
+            tmp=l1;
+            l1 = l2;
+            l2 = tmp;
+        }
+        ListNode *index1 = l1, *index2 = l2;
+        while(index1->next != NULL && index2 != NULL){
+            if(index2->val >= index1->val && index2->val < index1->next->val){
+                ListNode *tmp1, *tmp2;
+                tmp1 = index1->next;
+                tmp2 = index2->next;
+                index1->next = index2;
+                index2->next = tmp1;
+                index2 = tmp2;
+            }
+            else index1 = index1->next;
+        }
+        if(index1->next == NULL) {index1->next = index2;}
+        
+        return l1;
+    }
+};
