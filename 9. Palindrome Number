@@ -1,0 +1,16 @@
+//9. Palindrome Number
+class Solution {
+public:
+    bool isPalindrome(int x) {
+        int rev = 0, dup = x;
+        if(dup<0) return false;
+        while(dup != 0){
+            if(INT_MAX / 10 < rev || INT_MIN / 10 > rev) return false;
+            rev = rev * 10;
+            rev += dup % 10;
+            dup = dup / 10;
+        }
+        if(rev == x) return true;
+        return false;
+    }
+};
