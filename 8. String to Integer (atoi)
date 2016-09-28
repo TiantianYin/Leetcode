@@ -1,0 +1,37 @@
+//8. String to Integer (atoi)
+class Solution {
+public:
+    int myAtoi(string str) {
+        bool begin = false;
+        int ssize = str.size(), result = 0;
+        bool first_op = true;
+        int op = 1;
+        if(ssize == 0) return result;
+        for(int i = 0; i < ssize; i++){
+            int num = str[i] - '0';
+            if((num > 9  || num < 0) && begin) break;
+            if((num > 9  || num < 0) && (str[i] - '-' != 0) && (str[i] - '+' != 0) && (str[i] - ' ' != 0)) break;
+            if(str[i] - '-' == 0 ) {
+                begin = true;
+                if(first_op) {op = -1; first_op = false;}
+                if(op >= 0) op--;
+            }
+            if(str[i] - '+' == 0) {
+                begin = true;
+                first_op = false;
+                if(op <= 0) op++;
+            }
+            if(num <= 9  && num >= 0){
+                begin = true;
+                if(INT_MAX/10 < result || INT_MAX - 10*result < num){
+                    if(op < 0) return INT_MIN;
+                    if(op == 0) return 0;
+                    return INT_MAX;
+                }
+                result = result * 10;
+                result += num;
+            }
+        }
+        return op*result;
+    }
+};
