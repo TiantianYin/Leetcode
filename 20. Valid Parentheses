@@ -1,0 +1,69 @@
+//20. Valid Parentheses
+struct StackNode{
+    char val;
+    StackNode *next;
+    StackNode(char a){val = a;  next = NULL;}
+    StackNode(char a, StackNode *b){val = a; next = b;}
+};
+
+
+class Stack {
+public:
+    /** initialize your data structure here. */
+    StackNode *prompt;
+    
+    Stack() {
+        prompt = new StackNode(' ', NULL);
+    }
+    
+    void push(char x) {
+        StackNode *tmp = new StackNode(x, prompt->next);
+        prompt->next = tmp;
+    }
+    
+    void pop() {
+        if(prompt->next == NULL) return;
+        free(prompt->next);
+        prompt->next = prompt->next->next;
+    }
+    
+    char top() {
+        if(prompt->next == NULL) return ' ';
+        return prompt->next->val;
+    }
+};
+
+class Solution {
+public:
+    bool isValid(string s) {
+        Stack aaa;
+        for(int i = 0; i < s.size(); i++){
+            switch(s[i]){
+                case '(':
+                    aaa.push(s[i]);
+                    break;
+                case ')':
+                    if(aaa.top() - '(' == 0) aaa.pop();
+                    else return false;
+                    break;
+                case '[':
+                    aaa.push(s[i]);
+                    break;
+                case ']':
+                    if(aaa.top() - '[' == 0) aaa.pop();
+                    else return false;
+                    break;
+                case '{':
+                    aaa.push(s[i]);
+                    break;
+                case '}':
+                    if(aaa.top() - '{' == 0) aaa.pop();
+                    else return false;
+                    break;
+            }
+            
+        }
+        if(aaa.top() - ' ' == 0) return true;
+        return false;
+    }
+};
