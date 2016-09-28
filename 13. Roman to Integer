@@ -1,0 +1,39 @@
+//13. Roman to Integer 
+class Solution {
+public:
+    int romanToInt(string s) {
+        int result = 0, current = 0, latter = 0, ssize = s.size();
+        if(ssize == 0) return result;
+        for(int i = ssize - 1; i > -1; i--){
+            switch(s[i]){
+                case 'I':
+                    current = 1;
+                    break;
+                case 'V':
+                    current = 5;
+                    break;
+                case 'X':
+                    current = 10;
+                    break;
+                case 'L':
+                    current = 50;
+                    break;
+                case 'C':
+                    current = 100;
+                    break;
+                case 'D':
+                    current = 500;
+                    break;
+                case 'M':
+                    current = 1000;
+                    break;
+                default :
+                    break;
+            }
+            int op = (current < latter)? -1 :1;
+            latter = current;
+            result += (op * current);
+        }
+        return result;
+    }
+};
