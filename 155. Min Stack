@@ -1,0 +1,42 @@
+//155. Min Stack
+struct StackNode{
+    int val;
+    int min;
+    StackNode *next;
+    StackNode(int a){val = a; min=a; next = NULL;}
+    StackNode(int a, StackNode *b){val = a; min=a; next = b;}
+};
+
+
+class MinStack {
+public:
+    /** initialize your data structure here. */
+    StackNode *prompt;
+    bool first;
+    
+    MinStack() {
+        prompt = new StackNode(0,NULL);
+        prompt->next == prompt;
+    }
+    
+    void push(int x) {
+        StackNode *tmp = new StackNode(x, prompt->next);
+        if(prompt->next != NULL) tmp->min = (tmp->min < prompt->next->min) ? tmp->min : prompt->next->min;
+        prompt->next = tmp;
+    }
+    
+    void pop() {
+        if(prompt->next == NULL) return;
+        free(prompt->next);
+        prompt->next = prompt->next->next;
+    }
+    
+    int top() {
+        if(prompt->next == NULL) return -1;
+        return prompt->next->val;
+    }
+    
+    int getMin() {
+        return prompt->next->min;
+    }
+};
