@@ -1,0 +1,28 @@
+//138. Copy List with Random Pointer
+class Solution {
+public:
+    RandomListNode *copyRandomList(RandomListNode *head) {
+        if (head==NULL) return NULL;
+        RandomListNode *tmp = head, *re;
+        while(tmp){
+            RandomListNode *newnode = new RandomListNode(tmp->label);
+            newnode->next = tmp->next;
+            tmp->next = newnode;
+            tmp = newnode->next;
+        }
+        tmp = head;
+        while(tmp){
+            if(tmp->random) tmp->next->random = tmp->random->next;
+            tmp = tmp->next->next;
+        }
+        re = head->next;
+        tmp = head;
+        while(tmp){
+            RandomListNode *op = tmp->next;
+            tmp->next = op->next;
+            tmp = tmp->next;
+            op->next = tmp? tmp->next : NULL;
+        }
+        return re;
+    }
+};
